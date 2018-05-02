@@ -6,7 +6,7 @@
 #    By: mgill <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/10 23:58:55 by mgill             #+#    #+#              #
-#    Updated: 2018/04/14 04:56:00 by mgill            ###   ########.fr        #
+#    Updated: 2018/04/20 02:25:03 by mgill            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = fillit
 CFLAGS += -Wall -Wextra -Werror
 CFLAGS += -I libft/
 
-SRC = fillit.c shapechecker.c
+SRC = fillit.c shapechecker.c solver.c
 
 OBJ = $(SRC:.c=.o)
 

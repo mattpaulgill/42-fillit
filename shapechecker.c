@@ -6,7 +6,7 @@
 /*   By: mgill <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 02:29:35 by mgill             #+#    #+#             */
-/*   Updated: 2018/04/16 05:21:13 by mgill            ###   ########.fr       */
+/*   Updated: 2018/04/23 19:49:27 by mgill            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char	**ft_tetricpy(char *str, int numtetris)
 	row = 0;
 	if (!(twodarr = (char**)malloc(sizeof(char *) * numtetris + 1)))
 		return (0);
+	twodarr[numtetris + 1] = 0;
 	while (row < numtetris)
 	{
 		j = 0;
@@ -163,27 +164,43 @@ char	**ft_tetricpy(char *str, int numtetris)
 */
 }
 
-int		shapechecker(char *str, int numtetris, char validtetris[20][15])
+//function to switch hashes to letters
+
+int		hashtoletter(char *validtetri, int row)
+{
+	int i;
+
+	i = 0;
+	while(validtetri[i])
+		{
+			if (validtetri[i] == '#')
+				validtetri[i] = (65 + row);
+			i++;
+		}
+	return 0;
+}
+
+char	**shapechecker(char *str, int numtetris, char validtetris[20][15])
 {
 	char **separatedtetris;
 	int i;
 	int row;
-	int  matchfound;
-//	return (ft_tetricpy(str));
 	separatedtetris = ft_tetricpy(str, numtetris);
-	i = 0;
 	row = 0;
-	matchfound = 0;
 //	printf("validtetris: %s", validtetris[0]);
 	while(separatedtetris[row])
 	{
-		while(i < 19 && !matchfound)
+		i = 0;
+		while(i < 19 && row < numtetris)
 		{
-//			printf("loop entered, i: %i\n",i);
+			printf("loop entered, i: %i\n",i);
 			if ((ft_strstr(separatedtetris[row], validtetris[i]) != 0)) //if a match is found
 			{
-				matchfound = 1;
-				printf(GRN"\nmatch found,\n  separatedtetris[%s],\n  validtetris[%s]\n"RESET, separatedtetris[row], validtetris[i]); 
+				ft_bzero(separatedtetris[row], ft_strlen(separatedtetris[row]));
+				ft_strcpy(separatedtetris[row], validtetris[i]);
+				hashtoletter(separatedtetris[row], row);
+				printf(GRN"\nmatch found,\n  separatedtetris[%s],\n  validtetris[%s]\n"RESET, separatedtetris[row], validtetris[i]);
+				break ;
 			}
 			else
 			{
@@ -195,12 +212,9 @@ int		shapechecker(char *str, int numtetris, char validtetris[20][15])
 				i++;
 			}
 		}
-		if (matchfound)
-		{
-			i = 0;
-			row++;
-			matchfound = 0;
-		}
+		row++;
 	}
-	return 0;
+	return (separatedtetris);
+//	return 0;
 }
+

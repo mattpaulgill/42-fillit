@@ -6,7 +6,7 @@
 /*   By: mgill <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 13:15:26 by mgill             #+#    #+#             */
-/*   Updated: 2018/04/16 05:22:39 by mgill            ###   ########.fr       */
+/*   Updated: 2018/04/20 02:49:39 by mgill            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,8 +195,10 @@ int		tetriread(char *argv[], char *buf)
 int		main(int argc, char *argv[])
 {
 	char validtetris[20][15];
-	char buf[526]; //26 tetriminos is the max input, so 26 * 21 characters + 1 for \0i
+	char buf[526]; //26 tetriminos is the max input, so 26 * 21 characters + 1 for \0
+	char **tetriswithletters;
 	int numtetris;
+
 
 	if (argc != 2)
 	{
@@ -207,8 +209,15 @@ int		main(int argc, char *argv[])
 	numtetris = tetriread(argv, buf);
 	if (numtetris)
 	{
-		shapechecker(buf, numtetris, validtetris);
-
+		if(!(tetriswithletters = shapechecker(buf, numtetris, validtetris)))
+		{
+			printf("TETRIS WITH LETTERS NOT VALID\n");
+			return 0;
+		}
+		else
+		{
+			solver(tetriswithletters, numtetris);
+		}
 	}
 
 

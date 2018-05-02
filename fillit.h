@@ -6,7 +6,7 @@
 /*   By: mgill <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 23:51:34 by mgill             #+#    #+#             */
-/*   Updated: 2018/04/16 05:22:42 by mgill            ###   ########.fr       */
+/*   Updated: 2018/04/27 21:18:23 by mgill            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define CYN   "\x1B[36m"
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
+# define MAPOFFSET 4
+# define CHECKSTART 0
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -27,7 +29,11 @@
 # include <string.h>
 # include "libft.h"
 
-int		shapechecker(char *str, int numtetris, char validtetris[20][15]);
+char	**shapechecker(char *str, int numtetris, char validtetris[20][15]);
 int		inputcheck(char *buf);
-char	**ft_tetricpy(char *str, int numtetris);
+//char	**ft_tetricpy(char *str, int numtetris);
+int		solver(char **separatedtetris, int numtetris);
+int		checkspot(char **map, char **separatedtetris, int mapside, int numtetris);
+//char	**checkspot(char **map, char **separatedtetris, int mapside);
+int		placetetris(char **map, char **separatedtetris);
 #endif
