@@ -6,7 +6,7 @@
 /*   By: mgill <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 23:51:34 by mgill             #+#    #+#             */
-/*   Updated: 2018/04/27 21:18:23 by mgill            ###   ########.fr       */
+/*   Updated: 2018/05/05 21:02:44 by mgill            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@
 
 char	**shapechecker(char *str, int numtetris, char validtetris[20][15]);
 int		inputcheck(char *buf);
-//char	**ft_tetricpy(char *str, int numtetris);
 int		solver(char **separatedtetris, int numtetris);
-int		checkspot(char **map, char **separatedtetris, int mapside, int numtetris);
-//char	**checkspot(char **map, char **separatedtetris, int mapside);
 int		placetetris(char **map, char **separatedtetris);
 #endif

@@ -15,97 +15,6 @@
 #include <stdio.h>
 #include <stdio.h>
 
-/*
-int		strlength(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		//printf("   i: %i  character: %c\n", i, str[i]);
-		i++;
-	}
-	return (i);
-}
-*/
-
-/*
-int 	inputcheck(char *buf)
-{
-	int hashcount;
-	int count;
-	int linecount;
-	int i;
-	int len;
-	int tetrisfound;
-
-	hashcount = 0;
-	count = 1;
-	linecount = 1;
-	i = 0;
-	len = strlength(buf);
-	tetrisfound = 0;
-
-	while (buf[i])
-	{
-		if (buf[i] != '#' && buf[i] != '.')
-		{
-			printf("invalid character found: [%c] at index [%i]\n", buf[i], i);
-			printf("linecount: %i  count: %i\n", linecount, count);
-			return 0;
-		}
-		else if (buf[i] == '#')
-		{
-			hashcount++;
-		}		
-		i++;
-		count++;
-		if (count % 5 == 0 && linecount < 5)
-		{
-			if (buf[i] != '\n')
-			{
-				printf("no new line at end of line\n");
-				return 0;
-			}
-			else
-			{
-			//	printf("new line found at linecount %i\n",linecount);
-				i++;
-				linecount++;
-				count = 1;
-			}
-		}
-
-		if (linecount == 5)
-		{
-			if (hashcount != 4)
-			{
-				printf("wrong amount of #'s found. hashcount: %i\n", hashcount);
-				return 0;
-			}
-			else
-			{
-				hashcount = 0;
-			}
-			if (buf[i] != '\n')
-			{
-				printf("no new line after tetrimino at tetrimino #%i\n", tetrisfound + 1);
-				return 0;
-			}
-			else
-			{
-				i++;
-				linecount = 1;
-				tetrisfound++;
-				printf("  tetris found: %i\n", tetrisfound);
-			}
-		}
-	}
-	return tetrisfound;
-}
-*/
-
 void	makevalidtetris(char valid[20][15])
 {
 	ft_strcpy(valid[0], "###...#");
@@ -137,29 +46,10 @@ int		tetriread(char *argv[], char *buf)
 	int fd;
 	int i;
 	int tetrisfound;
-//	char buf[526]; //26 tetriminos is the max input, so 26 * 21 characters + 1 for \0
-//	char checkedInput[26][21];
 
 	i = 0;
 	tetrisfound = 0;
-/*
-//write
-	fd = open("test", O_CREAT | O_WRONLY, 0600);
-
-	if (fd == -1)
-	{
-		printf("Failed to create and open the file.\n");
-		exit(1);
-	}
-
-	write(fd, "Hello World!\n", 13);
-
-	close(fd);
-*/
-
-//read
 	fd = open(argv[1], O_RDONLY);
-
 	if (fd == -1)
 	{
 		printf("Failed to open and read the file.\n");
@@ -188,7 +78,6 @@ int		tetriread(char *argv[], char *buf)
 		printf("%s", buf);
 		printf(RED"\nRESULT: Input not valid\n" RESET);
 	}
-
 	return 0;
 }
 
@@ -198,7 +87,6 @@ int		main(int argc, char *argv[])
 	char buf[526]; //26 tetriminos is the max input, so 26 * 21 characters + 1 for \0
 	char **tetriswithletters;
 	int numtetris;
-
 
 	if (argc != 2)
 	{
@@ -219,7 +107,5 @@ int		main(int argc, char *argv[])
 			solver(tetriswithletters, numtetris);
 		}
 	}
-
-
 	return 0;
 }

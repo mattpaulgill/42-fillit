@@ -112,56 +112,6 @@ char	**ft_tetricpy(char *str, int numtetris)
 		row++;
 	}
 	return (twodarr);
-/*
- * old version of ft_tetricopy which works
- *
-	int i;
-	int j;
-	int row;
-	int linecount;
-	char **twodarr;
-
-	i = 0;
-	j = 0;
-	row = 0;
-	linecount = 1;
-	if (!(twodarr = (char**)malloc(sizeof(char *) * numtetris + 1)))
-		return (0);
-	while (i <= numtetris)
-	{
-		twodarr[i] = 0;
-		i++;
-	}
-	i = 0;
-	while (numtetris-- > 0)
-	{
-		twodarr[numtetris] = ft_strnew(21);
-	}
-	while (str[i])
-	{
-		if (str[i] == '\n' && linecount < 5)
-		{
-			i++;
-			linecount++;
-		}
-		if (linecount == 5)
-		{
-			twodarr[row][j] = '\0';
-			printf("twodar[%i], copied tetri: %s\n", row, twodarr[row]);
-			i++;
-			linecount = 1;
-			j = 0;
-			if(str[i])
-				row++;
-			else
-				break ;
-		}
-		twodarr[row][j] = str[i];
-		i++;
-		j++;
-	}
-	return (twodarr);
-*/
 }
 
 //function to switch hashes to letters
@@ -215,6 +165,5 @@ char	**shapechecker(char *str, int numtetris, char validtetris[20][15])
 		row++;
 	}
 	return (separatedtetris);
-//	return 0;
 }
 
