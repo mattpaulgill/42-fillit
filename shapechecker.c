@@ -93,13 +93,14 @@ char	**ft_tetricpy(char *str, int numtetris)
 
 	i = 0;
 	row = 0;
-	if (!(twodarr = (char**)malloc(sizeof(char *) * numtetris + 1)))
+	if (!(twodarr = (char**)ft_memalloc(sizeof(char *) * numtetris + 1)))
 		return (0);
-	twodarr[numtetris + 1] = 0;
+	twodarr[numtetris] = 0;
 	while (row < numtetris)
 	{
 		j = 0;
 		twodarr[row] = ft_strnew(20);
+	//	ft_bzero(twodarr[row], 20);
 		while (j < 16)
 		{
 			if (str[i] != '\n')

@@ -28,6 +28,7 @@
 # include <unistd.h>
 # include <string.h>
 # include "libft.h"
+# include <stdio.h> //REMOVE THIS
 
 char	**shapechecker(char *str, int numtetris, char validtetris[20][15]);
 int		inputcheck(char *buf);

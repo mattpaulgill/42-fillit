@@ -13,7 +13,6 @@
 #include "fillit.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdio.h>
 
 void	makevalidtetris(char valid[20][15])
 {
