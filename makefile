@@ -13,16 +13,13 @@
 
 NAME = fillit
 
-CFLAGS += -Wall -Wextra -Werror
-CFLAGS += -I libft/
+CFLAGS = -Wall -Wextra -Werror -I libft/
 
-SRC = fillit.c shapechecker.c solver.c
+SRC = fillit.c inputchecker.c solver.c maphelper.c
 
 OBJ = $(SRC:.c=.o)
 
 LIBFT = libft/libft.a
-
-.PHONY = all clean fclean clean re
 
 all: $(NAME)
 
@@ -33,7 +30,7 @@ $(LIBFT):
 	@make -C libft
 
 $(NAME): $(LIBFT) $(OBJ)
-	@gcc $(OBJ) $(LIBFT) -o $(NAME)
+	@gcc -o $(NAME) $(OBJ) $(LIBFT)
 	@echo "\033[32mCompiled Executable\033[0m"
 
 clean:
@@ -47,3 +44,5 @@ fclean: clean
 	@echo "\033[32mRemoved Executable\033[0m"
 
 re: fclean all
+
+.PHONY = all clean fclean clean re
