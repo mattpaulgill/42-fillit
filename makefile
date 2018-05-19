@@ -10,12 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
-
 NAME = fillit
 
-CFLAGS = -Wall -Wextra -Werror -I libft/
+CFLAGS += -Wall -Wextra -Werror
+CFLAGS += -I libft/
 
-SRC = fillit.c inputchecker.c solver.c maphelper.c
+SRC = fillit.c solver.c maptools.c inputchecker.c othertools.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -30,7 +30,7 @@ $(LIBFT):
 	@make -C libft
 
 $(NAME): $(LIBFT) $(OBJ)
-	@gcc -o $(NAME) $(OBJ) $(LIBFT)
+	@gcc $(OBJ) $(LIBFT) -o $(NAME)
 	@echo "\033[32mCompiled Executable\033[0m"
 
 clean:

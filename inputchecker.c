@@ -6,20 +6,22 @@
 /*   By: mgill <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 02:29:35 by mgill             #+#    #+#             */
-/*   Updated: 2018/04/23 19:49:27 by mgill            ###   ########.fr       */
+/*   Updated: 2018/05/18 18:52:57 by mgill            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
 /*
- * [line ??]	called from shapecheck.
- * checks if there are only dots and hashes in a single tetromino.
- * i is passed into charcheck containing the last index of a tetromino.
- * [line 26]	j = 19: the max index in a tetromino, j is subtracted from i
- * 		and decremented to check each character of the tetromino.
- * [line 36]	hashcount != 4: if there aren't exactly 4 hashes, it is invalid.
- */
-int 	charcheck(char *buf, int i, int hashcount)
+** [line 67]	called from shapecheck().
+** charcheck() checks if there are only dots and hashes in a single tetromino.
+** i is passed into charcheck containing the last index of a tetromino.
+** [line 28]	j = 19: the max index in a tetromino, j is subtracted from i
+** 		and decremented to check each character of the tetromino.
+** [line 37]	hashcount != 4: if there aren't exactly 4 hashes, it is invalid.
+*/
+
+int		charcheck(char *buf, int i, int hashcount)
 {
 	int j;
 
@@ -38,24 +40,25 @@ int 	charcheck(char *buf, int i, int hashcount)
 }
 
 /*
- * [line ??]
- *
- * [line ??]
- *
- * [line ??]
- *
- * [line ??]
- *
- */
-int 	shapecheck(char *buf, int i, int widthcount, int heightcount)
+** [fillit.c:77] called from tetriread()
+** [lines 53-60] iterates through the input and checks for a '\n' after each 4
+** 		characters in each line of the tetrominos, heightcount adds 1 per line
+** [lines 62-71] at the end of a tetri, run charcheck() at the end of the 4th
+** 		line of the tetromino (i - 1). then check if there's any data at the
+**		current index [line 67] and if not then this is the end of the input.
+** [lines 71-75] if a '\n' is found then reset heightcount and continue to the
+**		next index which will be the start of the next tetromino.
+*/
+
+int		shapecheck(char *buf, int i, int widthcount, int heightcount)
 {
-	while(buf[++i])
+	while (buf[++i])
 	{
 		if (widthcount % 4 == 0 && i > 0)
 		{
 			heightcount++;
 			widthcount = 0;
-			if(buf[i] != '\n')
+			if (buf[i] != '\n')
 				return (0);
 			i++;
 		}
@@ -74,52 +77,22 @@ int 	shapecheck(char *buf, int i, int widthcount, int heightcount)
 	}
 	return (1);
 }
-/*
- * [line ??]
- *
- * [line ??]
- *
- * [line ??]
- *
- * [line ??]
- *
- */
-int 	countvalidtetris(char *buf)
-{
-	int totaltetris;
-	int i;
 
-	totaltetris = 0;
-	i = -1;
-	while(buf[++i])
-	{
-		if(buf[i] == '\n' && buf[i + 1] == '\n')
-		{
-			totaltetris++;
-		}
-	}
-	return (totaltetris + 1);
-}
 /*
- * [line ??]
- *
- * [line ??]
- *
- * [line ??]
- *
- * [line ??]
- *
- */
-char	**tetricpy(char *buf, int numberoftetris)
-{
-	int i;
-	int j;
-	int row;
-	char **twodarr;
+** [line 131] called from inputchecker(), returns a 2d array of tetrominos
+** [lines 95-97] creates the top array of a 2D array to hold the tetrominos
+** [lines 98-112] creates new strings at 20 length (the size of a tetromino)
+** 		and copies the data line by line from the input stored in buf
+*/
 
-	i = 0;
+char	**tetricpy(char *buf, int numberoftetris, int i)
+{
+	int		j;
+	int		row;
+	char	**twodarr;
+
 	row = 0;
-	if (!(twodarr = (char**)ft_memalloc(sizeof(char *) * numberoftetris + 1)))
+	if (!(twodarr = (char**)malloc(sizeof(char *) * numberoftetris + 1)))
 		return (0);
 	twodarr[numberoftetris] = 0;
 	while (row < numberoftetris)
@@ -140,49 +113,32 @@ char	**tetricpy(char *buf, int numberoftetris)
 	return (twodarr);
 }
 
-/* [line ??] called from inputchecker.
- * switches hashes in tetrominos to capital letters.
- */
-int		hashtoletter(char *validtetri, int row)
-{
-	int i;
-
-	i = 0;
-	while(validtetri[i])
-		{
-			if (validtetri[i] == '#')
-				validtetri[i] = (65 + row);
-			i++;
-		}
-	return 0;
-}
 /*
- * [fillit.c:??]	called from main.
- * returns a 2d array of the valid tetrominos in the proper format.
- * [line ??]
- *
- * [line ??]
- *
- * [line ??]
- *
- */
-char	**inputchecker(char *buf, int numberoftetris, char validtetris[20][15], int row)
-{
-	char **separatedtetris;
-	int i;
+** [fillit.c:119]	called from main.
+** returns a 2d array of the valid tetrominos in the proper format.
+** [line 131] splits the tetrominos from the input file into a 2D array
+** [lines 132-143] for each tetromino, checks if it matches with one of the
+** 		valid possible tetromino shapes in combos. the contents of the tetromino
+**		stored in separatedtetris is erased and replaced with the valid shape
+**		found (this removes all unneeded '.'s). switches the hashes to letters.
+*/
 
-	separatedtetris = tetricpy(buf, numberoftetris);
-	while(separatedtetris[++row])
+char	**inputchecker(char *buf, int numtetris, char combos[20][15], int row)
+{
+	char	**separatedtetris;
+	int		i;
+
+	separatedtetris = tetricpy(buf, numtetris, 0);
+	while (separatedtetris[++row])
 	{
 		i = 0;
-		while(i < 19 && row < numberoftetris)
+		while (i < 19 && row < numtetris)
 		{
-			if ((ft_strstr(separatedtetris[row], validtetris[i]) != 0)) //if a match is found
+			if ((ft_strstr(separatedtetris[row], combos[i]) != 0))
 			{
 				ft_bzero(separatedtetris[row], ft_strlen(separatedtetris[row]));
-				ft_strcpy(separatedtetris[row], validtetris[i]);
+				ft_strcpy(separatedtetris[row], combos[i]);
 				hashtoletter(separatedtetris[row], row);
-				//printf(GRN"\nmatch found,\n  separatedtetris[%s],\n  validtetris[%s]\n"RESET, separatedtetris[row], validtetris[i]);
 				break ;
 			}
 			else

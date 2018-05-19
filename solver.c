@@ -12,6 +12,11 @@
 
 #include "fillit.h"
 
+/*
+**	[line ??] called from cycle()
+**
+*/
+
 void	deletetetri(char **grid, char *tetri, int row, int col)
 {
 	char	ch;

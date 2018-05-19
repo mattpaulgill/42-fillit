@@ -6,18 +6,20 @@
 /*   By: mgill <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 13:15:26 by mgill             #+#    #+#             */
-/*   Updated: 2018/04/20 02:49:39 by mgill            ###   ########.fr       */
+/*   Updated: 2018/05/18 18:42:32 by mgill            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdlib.h>
 #include <stdio.h>
+
 /*
- * [line 112]	called from main.
- * makevalidcombos uses strcpy to place the hardcoded strings of valid
- *		tetromino shapes into the validcombos 2d array.
+** [line 116]	called from main.
+** makevalidcombos uses strcpy to place the hardcoded strings of valid
+** tetromino shapes into the validcombos 2d array.
 */
+
 void	makevalidcombos(char validcombos[20][15])
 {
 	ft_strcpy(validcombos[0], "###...#");
@@ -42,21 +44,22 @@ void	makevalidcombos(char validcombos[20][15])
 }
 
 /*
- * [line 113]	called from main
- * tetriread() returns the number of valid tetrominos found in the input
- * [lines 65-73]	fd stores the file descriptor returned from open();
- * 		fd stores the file descriptor returned from running open() on the input.
- * buf[ft_strlen(buf)] = '\0'; null terminates the string.
- * closes the input.
- * [line 74-84]		calls shapecheck() [inputchecker.c:50??]
- *		shapecheck(char *buf, int i, int widthcount, int heightcount)
- *		buf is the input, i is -1 due to pre-incrementation in shapecheck's loop,
- *		i, widthcount and heightcount are not declared in shapecheck due to
- *		keep the function within 25 lines in length.
- *		if shapecheck or countvalidtetris return 0 then the input is invalid
- *		and an error is thrown.
- */
-int	tetriread(char *argv[], char *buf)
+** [line 117]	called from main
+** tetriread() returns the number of valid tetrominos found in the input
+** [lines 65-73]	fd stores the file descriptor returned from open();
+** fd stores the file descriptor returned from running open() on the input.
+** buf[ft_strlen(buf)] = '\0'; null terminates the string.
+** closes the input.
+** [line 74-84]		calls shapecheck() [inputchecker.c:50??]
+** shapecheck(char *buf, int i, int widthcount, int heightcount)
+** buf is the input, i is -1 due to pre-incrementation in shapecheck's loop,
+** i, widthcount and heightcount are not declared in shapecheck due to
+** keep the function within 25 lines in length.
+** if shapecheck or countvalidtetris [othertools.c:] return 0, 
+** then the input is invalid and an error is thrown.
+*/
+
+int		tetriread(char *argv[], char *buf)
 {
 	int fd;
 	int validtetrisfound;
@@ -77,26 +80,26 @@ int	tetriread(char *argv[], char *buf)
 		return (0);
 	}
 	validtetrisfound = countvalidtetris(buf);
-	if(validtetrisfound == 0)
+	if (validtetrisfound == 0)
 	{
 		ft_putstr("error\n");
 		return (0);
 	}
-	else
-		return (validtetrisfound);
+	return (validtetrisfound);
 }
 
 /*
-** [line 102]	char validcombos[20][15]; this will store the valid tetrimino
-**		shapes as strings. there are 19 shapes with a max length of 15.
-** [line 103]	char buf[526]; this will store the input as a string.
-**		26 tetriminos is the max input, so 26 * 21 characters + 1 for \0.
-** [line 112]	makevalidcombos uses strcpy to place the hardcoded strings into
-**		the validcombos 2d array
-** [lines 113-123]	reads the input, stores the # of valid tetrominos found.
-**		throws an error if the input is invalid.
-**		passes the 2d array of valid tetrominos to solver.
+** [line 106]	char validcombos[20][15]; this will store the valid tetrimino
+** shapes as strings. there are 19 shapes with a max length of 15.
+** [line 107]	char buf[526]; this will store the input as a string.
+** 26 tetriminos is the max input, so 26 * 21 characters + 1 for \0.
+** [line 116]	makevalidcombos uses strcpy to place the hardcoded strings into
+** the validcombos 2d array
+** [lines 117-127]	reads the input, stores the # of valid tetrominos found.
+** throws an error if the input is invalid.
+** passes the 2d array of valid tetrominos to solver.
 */
+
 int		main(int argc, char *argv[])
 {
 	char	validcombos[20][15];
@@ -113,7 +116,8 @@ int		main(int argc, char *argv[])
 	numberoftetris = tetriread(argv, buf);
 	if (numberoftetris != 0)
 	{
-		if (!(checkedtetris = inputchecker(buf, numberoftetris, validcombos, -1)))
+		if (!(checkedtetris = inputchecker(buf,
+						numberoftetris, validcombos, -1)))
 		{
 			ft_putstr("error\n");
 			return (0);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maphelper.c                                        :+:      :+:    :+:   */
+/*   maptools.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgill <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,6 +11,11 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*
+**	[solver:] called from solver()
+**	frees the map's memory
+*/
 
 void	freemap(char **map, int mapside)
 {
@@ -77,15 +82,4 @@ char	**makemap(int mapside, int mapsidewithoffset, int i)
 		ft_bzero(map[i], mapsidewithoffset);
 	}
 	return (map);
-}
-
-/*
-**	called from deletetetri()
-*/
-
-char	getletter(char *tetri)
-{
-	while (*tetri == '.')
-		tetri++;
-	return (*tetri);
 }
