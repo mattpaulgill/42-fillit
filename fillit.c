@@ -55,7 +55,7 @@ void	makevalidcombos(char validcombos[20][15])
 ** buf is the input, i is -1 due to pre-incrementation in shapecheck's loop,
 ** i, widthcount and heightcount are not declared in shapecheck due to
 ** keep the function within 25 lines in length.
-** if shapecheck or countvalidtetris [othertools.c:] return 0, 
+** if shapecheck or countvalidtetris [othertools.c:] return 0,
 ** then the input is invalid and an error is thrown.
 */
 

@@ -44,8 +44,8 @@ int		hashtoletter(char *validtetri, int row)
 }
 
 /*
-** [inputchecker.c:161] called from inputchecker()
-** switches hashes in tetrominos to capital letters.
+** [fillit.c:82] called from tetriread()
+**	counts valid tetrominos by checking for double newlines
 */
 
 int		countvalidtetris(char *buf)
